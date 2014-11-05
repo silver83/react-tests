@@ -1,0 +1,9 @@
+[18:52:12] Using gulpfile ~/Code/tests/react/gulpfile.js
+[18:52:12] Starting 'watch'...
+[18:52:16] Finished 'watch' after 3.08 s
+[18:52:16] Starting 'webserver'...
+[18:52:16] Webserver started at http://localhost:8000
+[18:52:16] Finished 'webserver' after 14 ms
+[18:52:16] Starting 'default'...
+[18:52:16] Finished 'default' after 8.94 μs
+[18:52:16] Live reload server listening on: 35729
