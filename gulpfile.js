@@ -1,23 +1,31 @@
 var gulp = require('gulp'),
     livereload = require('gulp-livereload'),
     webserver = require('gulp-webserver'),
-    jsx = require('gulp-jsx'),
+    jsx = require('gulp-react'),
     watch = require('gulp-watch'),
     path = require('path'),
     splicer = require('labeled-stream-splicer');
+    
 
-var scripts = 'js/*.js',
+var scripts = [ 'js/**/*.js' ],
   other = '*.html',
   pub = 'public/';
 
-var generic_pipe = splicer.obj([]);
+var generic_pipes = [];
+
+var createGenericPipe = function() {
+    var pipe = splicer.obj([]);
+    generic_pipes.push(pipe);
+    return pipe;
+}
 
 gulp.task('jsx', function() {
     var dest = path.join(pub, 'js');
+    
     return gulp.src(scripts)
         .pipe(watch(scripts))
-        .pipe(generic_pipe)
         .pipe(jsx())
+        .pipe(createGenericPipe())
         .pipe(gulp.dest(dest));
 });
 
@@ -25,12 +33,12 @@ gulp.task('other', function() {
     var dest = pub;
     return gulp.src(other)
         .pipe(watch(other))
-        .pipe(generic_pipe)
+        .pipe(createGenericPipe())
         .pipe(gulp.dest(dest));
 });
 
 gulp.task('watch', function() {
-    generic_pipe.push(livereload());
+    generic_pipes.forEach(function(p) { p.push(livereload()); });
 });
 
 gulp.task('webserver', function() {
