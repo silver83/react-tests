@@ -8,6 +8,7 @@ var gulp = require('gulp'),
     
 
 var scripts = [ 'js/**/*.js' ],
+  css = [ 'css/**/*.css' ],
   other = '*.html',
   pub = 'public/';
 
@@ -27,6 +28,14 @@ gulp.task('jsx', function() {
         .pipe(jsx())
         .pipe(createGenericPipe())
         .pipe(gulp.dest(dest));
+});
+
+gulp.task('css', function() {
+    var dest = path.join(pub, 'css');
+    
+    return gulp.src(css)
+      .pipe(createGenericPipe())
+      .pipe(gulp.dest(dest));
 });
 
 gulp.task('other', function() {
@@ -52,4 +61,4 @@ gulp.task('webserver', function() {
 
 
 // The default task (called when you run `gulp` from cli)
-gulp.task('default', [ 'webserver', 'jsx', 'other', 'watch'  ]); //, 'scripts', 'images']);
+gulp.task('default', [ 'webserver', 'jsx', 'css', 'other', 'watch'  ]); //, 'scripts', 'images']);
